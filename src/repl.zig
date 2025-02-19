@@ -56,7 +56,7 @@ pub const Repl = struct {
     const compile = @import("Compiler.zig").compileRepl;
 
     fn init(repl: *Repl, gpa: Allocator) !void {
-        repl.buffer = try ArrayList(u8).initCapacity(gpa, std.mem.page_size);
+        repl.buffer = try ArrayList(u8).initCapacity(gpa, std.heap.pageSize());
         errdefer repl.buffer.deinit();
 
         if (builtin.os.tag != .windows) {
