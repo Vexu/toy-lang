@@ -13,23 +13,29 @@ pub fn main() !void {
     const args = try process.argsAlloc(gpa);
     defer process.argsFree(gpa, args);
 
+    var argsList = try std.ArrayList([]const u8).initCapacity(gpa, args.len);
+    defer argsList.deinit();
+    for (args) |arg| {
+        try argsList.append(std.mem.span(arg.ptr));
+    }
+
     if (args.len > 1) {
         if (mem.eql(u8, args[1], "fmt")) {
-            return fmt(gpa, args[2..]);
+            return fmt(gpa, argsList.items[2..]);
         }
         if (mem.eql(u8, args[1], "help") or mem.eql(u8, args[1], "--help")) {
             return help();
         }
         if (is_debug) {
             if (mem.eql(u8, args[1], "debug:dump")) {
-                return debugDump(gpa, args[2..]);
+                return debugDump(gpa, argsList.items[2..]);
             }
             if (mem.eql(u8, args[1], "debug:tokens")) {
-                return debugTokens(gpa, args[2..]);
+                return debugTokens(gpa, argsList.items[2..]);
             }
         }
         if (!mem.startsWith(u8, "-", args[1])) {
-            return run(gpa, args[1..]);
+            return run(gpa, argsList.items[1..]);
         }
     }
 
