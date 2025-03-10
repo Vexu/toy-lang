@@ -1493,7 +1493,7 @@ fn isNegative(val: *Value) bool {
 }
 
 fn getFrame(vm: *Vm, f: *Frame) void {
-    const cached = vm.frame_cache.popOrNull() orelse return;
+    const cached = vm.frame_cache.pop() orelse return;
     f.stack = cached.s;
     f.err_handlers = cached.e;
 }
