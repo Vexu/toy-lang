@@ -1,10 +1,16 @@
 .{
-    .name = "bog",
+    .name = .toy_lang,
+
     .version = "0.0.0",
+
+    .fingerprint = 0xb6e52362c59e5b4a, // Changing this has security and trust implications.
+
+    .minimum_zig_version = "0.14.0",
+
     .dependencies = .{
         .linenoise = .{
-            .url = "git+https://github.com/joachimschmidt557/linenoize?ref=0.14.x#1398679d3e329f6803dd630c40e89e8873c6893b",
-            .hash = "12204d720f02e3d783c138c92baf333fddac47f9fe40f9e7051d047e64f15bba6821",
+            .url = "git+https://github.com/joachimschmidt557/linenoize#8bf767663382624bd676b05829fa8d3975a05d88",
+            .hash = "linenoize-0.1.0-J7HK8IfXAABxH-V4Bp2Q0G7P-nrOmq9g8LuQAoX3SjDy",
         },
     },
     .paths = .{
